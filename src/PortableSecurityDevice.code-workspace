@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../PortableSecurityDevice"
+		},
+		{
+			"name": "Portable-Security-Device",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
