@@ -1,3 +1,13 @@
+## Version 0.1.1
+- Bluetooth Server in progress
+
+- Missing header file bt_controller_config.h — it wasn’t found in the installed ESP-IDF framework so BT_CONTROLLER_INIT_CONFIG_DEFAULT() macro couldn't be used.
+    - Manually defined a configuration struct to work around issue
+- Issues w/ BLE Headers
+    - Manually searched for them and included them into .ini file to get rid of squiggles under #includes in BLE_server.c 
+- Still needs further modification
+    - Will add error checks and print statements for future testing
+
 ## Version 0.1.0
 - Create first version of security device that detects when the switch is opened and prints status messages
 - Complete buzzer code to sound like an alarm
