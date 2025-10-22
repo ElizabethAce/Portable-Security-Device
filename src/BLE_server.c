@@ -6,12 +6,11 @@
  * 
  * Date:      10/09/2025
  * 
- * File Name: 
+ * Purpose: This program is the server side of the bluetooth communication 
+ *          between my device and the app.
  * 
- * Purpose: This program 
  * 
- * 
- * Utilization: 
+ * Utilization: TBD
  *
  * 
  *****************************************************************************/
