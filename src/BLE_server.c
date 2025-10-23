@@ -6,8 +6,10 @@
  * 
  * Date:      10/09/2025
  * 
- * Purpose: This program is the server side of the bluetooth communication 
- *          between my device and the app.
+ * Purpose: This program is the server side (Peripheral) of the bluetooth communication 
+ *          between my device and the app. The server advertises itself for 
+ *          clients (Central) to connect. It exposes a GATT Service containing data 
+ *          like sensor readings.
  * 
  * 
  * Utilization: TBD
@@ -50,7 +52,8 @@ void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
 void app_main() {
     /* Turn on BLE */
     // Initialize NVS 
-    nvs_flash_init();
+    nvs_flash_init();   // Stores pairing and bonding info
+    
 
     esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT); // Releases BSS, data for BLE use only after de-initializing
     // Get the default configuration
