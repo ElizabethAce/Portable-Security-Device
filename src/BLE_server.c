@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "driver/gpio.h"        // Includes functions required to config and control GPIOs
 #include "esp_log.h"
 #include "nvs_flash.h"
 
@@ -32,10 +33,13 @@
 
 
 #define GATTS_NUM_HANDLE 4
+#define GREEN_LED   GPIO_NUM_2 
+#define HIGH 1
+#define LOW 0
 
 static uint16_t service_handle;
-static esp_gatt_srvc_id_t service_id;
-static esp_gatt_if_t gatts_if_global;
+//static esp_gatt_srvc_id_t service_id;
+//static esp_gatt_if_t gatts_if_global;
 static esp_ble_adv_params_t adv_params = {
     .adv_int_min = 0x20,                                    // How often to advertise (~20-40 ms)
     .adv_int_max = 0x40,
@@ -46,10 +50,12 @@ static esp_ble_adv_params_t adv_params = {
 };
 
 /* FUNCTION PROTOTYPES */
-void gatts_event_handler(esp_gatts_cb_event event, esp_garr_if_t gatts_if, esp_ble_gatts_cb_param_t *param);
+void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param);
 void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
+void config_LED(void);
 
 void app_main() {
+    config_LED();
     /* Configure Bluetooth */
     // Initialize NVS 
     nvs_flash_init();   // Stores pairing and bonding info
@@ -73,13 +79,13 @@ void app_main() {
     esp_ble_gatts_app_register(0);      // Registers a BLE GATT server application with an app ID of 0
 
     /* Create a BLE Service */
-    esp_ble_gatts_create_service(gatts_if, &service_id, GATTS_NUM_HANDLE);
+    //esp_ble_gatts_create_service(gatts_if, &service_id, GATTS_NUM_HANDLE);
 
     /* Create a BLE Characteristics */
-    esp_ble_gatts_add_char(service_handle, &char_uuid, perm, prop, NULL, NULL);
+    //esp_ble_gatts_add_char(service_handle, &char_uuid, perm, prop, NULL, NULL);
 
     /* Create a BLE Descriptor */
-    esp_ble_gatts_add_char_descr(service_handle, &descr_uuid, perm, NULL, NULL); // Enables metadata like notifications
+    //esp_ble_gatts_add_char_descr(service_handle, &descr_uuid, perm, NULL, NULL); // Enables metadata like notifications
 
     /* Start Service and Advertising */
     esp_ble_gatts_start_service(service_handle);
@@ -87,7 +93,7 @@ void app_main() {
 }
 
 /* Handles GATT server events (e.g. client connection, client requests to r/w data, service created) */
-void gatts_event_handler(esp_gatts_cb_event event, esp_garr_if_t gatts_if, esp_ble_gatts_cb_param_t *param) {
+void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param) {
     switch (event) {
         case ESP_GATTS_REG_EVT:
             // Create service
@@ -96,11 +102,13 @@ void gatts_event_handler(esp_gatts_cb_event event, esp_garr_if_t gatts_if, esp_b
 
         case ESP_GATTS_CONNECT_EVT:
             // Device Connected
+            gpio_set_level(GREEN_LED , HIGH);      // Turn on green LED
             ESP_LOGI("BLE", "Device Connected");
             break;
 
         case ESP_GATTS_DISCONNECT_EVT:
             // Device disconnected, restart advertising
+            gpio_set_level(GREEN_LED , LOW);      // Turn off green LED
             ESP_LOGI("BLE", "Device Disconnected");
             esp_ble_gap_start_advertising(&adv_params);
             break;
@@ -117,3 +125,12 @@ void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
     }
 }
 
+void config_LED(void) {
+    // Reset and configure GPIO pins
+    gpio_reset_pin(GREEN_LED);
+    gpio_set_direction(GREEN_LED, GPIO_MODE_OUTPUT);
+
+    // Initialize state
+    gpio_set_level(GREEN_LED , LOW);      // Initialize LED off
+    vTaskDelay(pdMS_TO_TICKS(500));
+}
