@@ -1,3 +1,14 @@
+## Version 0.1.2
+- Issues:
+    - Linker & pio command issues
+    - To fix command not found issue:
+    export PATH=$PATH:~/.platformio/penv/bin
+    pio run -t clean
+    echo 'export PATH=$PATH:~/.platformio/penv/bin' >> ~/.zshrc
+- link_ble.py added for linker issues
+- Linker issues unresolved
+- Update push
+
 ## Version 0.1.1
 - Bluetooth Server in progress
 
