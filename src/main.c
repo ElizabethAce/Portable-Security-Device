@@ -32,7 +32,7 @@
 #define HIGH 1
 
 /** Prototypes **/
-/*
+
 void app_main(void) {
     // Reset and configure GPIO pins
     gpio_reset_pin(GREEN_LED);
@@ -91,4 +91,3 @@ void app_main(void) {
         }
     }
 }
-*/

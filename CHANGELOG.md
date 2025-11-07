@@ -1,3 +1,16 @@
+## Version 0.1.5 - Clean-up
+- Clean-up and possible hybrid change
+
+## Version 0.1.4
+- .ini platform change to newer version to force an update
+
+## Version 0.1.3
+- Linker issue:
+    - Ran pio run -t menuconfig
+    - Component config → Bluetooth → [Enable Bluetooth]
+    - Finally reached a compile error than just missing-libraries noise
+
+
 ## Version 0.1.2
 - Issues:
     - Linker & pio command issues

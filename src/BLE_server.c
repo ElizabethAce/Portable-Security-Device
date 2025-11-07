@@ -11,6 +11,8 @@
  *          clients (Central) to connect. It exposes a GATT (Generic Attribute Profile) Service containing data 
  *          like sensor readings.
  * 
+ *          Program using ESP-IDF on pause until linker issue resolved. 
+ *          Swithing to using Arduino libraries for BLE file
  * 
  * Utilization: TBD
  *
@@ -30,7 +32,6 @@
 #include "esp_gap_ble_api.h"        // handles advertising and connection
 #include "esp_gatts_api.h"          // handles GATT server logic (services/characteristics)
 #include "esp_gatt_common_api.h"    // general BLE types and constants
-
 
 #define GATTS_NUM_HANDLE 4
 #define GREEN_LED   GPIO_NUM_2 
@@ -54,43 +55,49 @@ void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp
 void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
 void config_LED(void);
 
-void app_main() {
-    config_LED();
-    /* Configure Bluetooth */
-    // Initialize NVS 
-    nvs_flash_init();   // Stores pairing and bonding info
-    esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT); // Release Classic for BLE use only to save RAM
-    // Get the default configuration
-    esp_bt_controller_config_t bt_cfg = {
-        .controller_task_prio = 5,
-        .controller_task_stack_size = 4096,
-        .mode = ESP_BT_MODE_BLE,
-    };
-    // Initialize controller
-    esp_bt_controller_init(&bt_cfg);
-    esp_bt_controller_enable(ESP_BT_MODE_BLE);
-    // Initialize bluedroid (software stack)
-    esp_bluedroid_init();
-    esp_bluedroid_enable();
+// void app_main() {
+//     config_LED();
+//     /* Configure Bluetooth */
+//     // Initialize NVS 
+//     nvs_flash_init();   // Stores pairing and bonding info
+//     esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT); // Release Classic for BLE use only to save RAM
+//     esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
+//     printf("DEBUG 1");
+//     // Get the default configuration
+//     // esp_bt_controller_config_t bt_cfg = {
+//     //     .controller_task_prio = 5,
+//     //     .controller_task_stack_size = 4096
+//     // };
+    
+//     // Initialize controller
+//     esp_bt_controller_init(&bt_cfg);
+//     esp_bt_controller_enable(ESP_BT_MODE_BLE);
+//     printf("DEBUG 2");
+//     // Initialize bluedroid (software stack)
+//     esp_bluedroid_init();
+//     esp_bluedroid_enable();
 
-    /* Create a BLE Device */
-    esp_ble_gatts_register_callback(gatts_event_handler);
-    esp_ble_gap_register_callback(gap_event_handler);
-    esp_ble_gatts_app_register(0);      // Registers a BLE GATT server application with an app ID of 0
+//     /* Create a BLE Device */
+//     esp_ble_gatts_register_callback(gatts_event_handler);
+//     esp_ble_gap_register_callback(gap_event_handler);
+//     esp_ble_gatts_app_register(0);      // Registers a BLE GATT server application with an app ID of 0
+//     printf("DEBUG 3");
+//     /* Create a BLE Service */
+//     //esp_ble_gatts_create_service(gatts_if, &service_id, GATTS_NUM_HANDLE);
 
-    /* Create a BLE Service */
-    //esp_ble_gatts_create_service(gatts_if, &service_id, GATTS_NUM_HANDLE);
+//     /* Create a BLE Characteristics */
+//     //esp_ble_gatts_add_char(service_handle, &char_uuid, perm, prop, NULL, NULL);
 
-    /* Create a BLE Characteristics */
-    //esp_ble_gatts_add_char(service_handle, &char_uuid, perm, prop, NULL, NULL);
+//     /* Create a BLE Descriptor */
+//     //esp_ble_gatts_add_char_descr(service_handle, &descr_uuid, perm, NULL, NULL); // Enables metadata like notifications
 
-    /* Create a BLE Descriptor */
-    //esp_ble_gatts_add_char_descr(service_handle, &descr_uuid, perm, NULL, NULL); // Enables metadata like notifications
+//     /* Start Service and Advertising */
+//     esp_ble_gatts_start_service(service_handle);
+//     printf("DEBUG 4");
+//     esp_ble_gap_start_advertising(&adv_params);
+//     printf("DEBUG 5");
+// }
 
-    /* Start Service and Advertising */
-    esp_ble_gatts_start_service(service_handle);
-    esp_ble_gap_start_advertising(&adv_params);
-}
 
 /* Handles GATT server events (e.g. client connection, client requests to r/w data, service created) */
 void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param) {
@@ -122,6 +129,7 @@ void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp
 void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param) {
     if (event == ESP_GAP_BLE_ADV_START_COMPLETE_EVT) {
         ESP_LOGI("BLE", "Advertising started");
+        printf("DEBUG: ADVERTISINGGGGGGGGG...");
     }
 }
 
