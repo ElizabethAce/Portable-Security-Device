@@ -1,3 +1,8 @@
+## Version 0.1.6 - BLE Version 1
+- Restrategizing BLE by using Arduino and ESPIDF
+- First draft ready to be tested with an existing app like LightBlue
+- Commented main.c out to remove potential conflicts with .cpp
+
 ## Version 0.1.5 - Clean-up
 - Clean-up and possible hybrid change
 

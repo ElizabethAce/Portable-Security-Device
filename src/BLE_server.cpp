@@ -1,0 +1,62 @@
+/*****************************************************************************
+ * File name:  BLE_server.c
+ *
+ * 
+ * Author:    Elizabeth Acevedo
+ * 
+ * Date:      10/09/2025
+ * 
+ * Purpose: This program is the server side (Peripheral) of the bluetooth
+ *          communication between my device and the app. The server advertises
+ *          itself for clients (Central) to connect. It exposes a 
+ *          GATT (Generic Attribute Profile) Service containing data 
+ *          like sensor readings.
+ * 
+ * 
+ * Utilization: TBD
+ *
+ * 
+ *****************************************************************************/
+/* INCLUDES */
+#include <Arduino.h>
+#include <BLEDevice.h>
+
+/* DEFINES */
+#define DEVICE_NAME "Guardian Pax"
+
+/*** Callbacks ***/
+class MyServerCallbacks : public BLEServerCallbacks {
+
+    void onConnect(BLEServer *pServer) {    // funcs are provided
+        digitalWrite(2, HIGH);
+        Serial.println("Client Connected!");
+    }
+
+    void onDisconnect(BLEServer *pServer) {
+        digitalWrite(2, LOW); 
+        Serial.println("Client Disconnected!");
+    }
+};
+
+
+void setup() {
+    Serial.begin(9600);
+    Serial.println("ESP32 BLE Server setup beginning...");
+
+    // Pin Modes
+    pinMode(2, OUTPUT);
+
+    // Initialize Device
+    BLEDevice::init(DEVICE_NAME); 
+
+    // Create Server
+    BLEServer *pServer = BLEDevice::createServer();
+    pServer->setCallbacks(new MyServerCallbacks());
+
+    // Start Advertising
+    BLEDevice::startAdvertising();
+}
+
+void loop() {
+
+}
