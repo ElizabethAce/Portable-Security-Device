@@ -1,10 +1,10 @@
 /*****************************************************************************
- * File name:  BLE_server.c
+ * File name:  BLE_server.cpp
  *
  * 
  * Author:    Elizabeth Acevedo
  * 
- * Date:      10/09/2025
+ * Date:      11/17/2025
  * 
  * Purpose: This program is the server side (Peripheral) of the bluetooth
  *          communication between my device and the app. The server advertises
@@ -28,23 +28,19 @@
 class MyServerCallbacks : public BLEServerCallbacks {
 
     void onConnect(BLEServer *pServer) {    // funcs are provided
-        digitalWrite(2, HIGH);
         Serial.println("Client Connected!");
     }
 
     void onDisconnect(BLEServer *pServer) {
-        digitalWrite(2, LOW); 
         Serial.println("Client Disconnected!");
+        //BLEDevice::startAdvertising();
     }
 };
 
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     Serial.println("ESP32 BLE Server setup beginning...");
-
-    // Pin Modes
-    pinMode(2, OUTPUT);
 
     // Initialize Device
     BLEDevice::init(DEVICE_NAME); 
@@ -52,6 +48,7 @@ void setup() {
     // Create Server
     BLEServer *pServer = BLEDevice::createServer();
     pServer->setCallbacks(new MyServerCallbacks());
+    
 
     // Start Advertising
     BLEDevice::startAdvertising();

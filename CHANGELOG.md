@@ -1,3 +1,8 @@
+## Version 0.1.7 - Testing BLE
+- First iteration of testing:
+    * Prints don't appear
+    * Device doesn't show up on the app
+
 ## Version 0.1.6 - BLE Version 1
 - Restrategizing BLE by using Arduino and ESPIDF
 - First draft ready to be tested with an existing app like LightBlue
