@@ -1,3 +1,28 @@
+## Version 0.1.8 - Testing BLE was sucessful on app
+- Debugging recap:
+    1. Switched from ESP-IDF to Arduino framework (just to test BLE)
+	    •	Updated platformio.ini to use framework = arduino
+	    •	BLE libraries resolved, #include <BLEDevice.h> stopped erroring.
+    2. Serial.print does not appear → suspected USB issue
+        •	Serial.println() does not show in monitor
+        •	Only repeated bootloader text (“ESP-ROM…”) seen
+    3. Tested both USB ports for uploads
+        •	Upload failed when using the UART port → confirms UART is not used for flashing
+        •	Upload succeeded when using the native USB port → correct port identified.
+    4. Observed continuous boot output in the monitor
+        •	Output included: rst:0x3, entry 0x403c98d0, etc.
+        •	Diagnosed as “bootloader loop” only on the UART debug port, not a code crash.
+            - macOS exposed both the ESP32-S3 USB interface and the UART bridge, and PlatformIO mistakenly opened the UART port instead of the USB port, which made the Serial Monitor show ROM bootloader messages instead of my actual firmware output.
+    5. Removed USB/CDC flags and attempted a clean reset
+        •	Removed the extra build flags that resulted to be unnecessary 
+        •	Pressed BOOT once on native USB
+    6. Re-ran BLE code → success
+        •	Serial prints however are not yet visible
+        •	BLE device name now visible on app LightBlue scan
+        •	Issue must have been Serial monitor attaching to the wrong port and/or USB CDC not initializing cleanly.
+    Need to resolve:
+    - Serial monitor prints not showing up
+
 ## Version 0.1.7 - Testing BLE
 - First iteration of testing:
     * Prints don't appear

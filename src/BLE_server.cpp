@@ -39,6 +39,7 @@ class MyServerCallbacks : public BLEServerCallbacks {
 
 
 void setup() {
+    delay(1000); 
     Serial.begin(115200);
     Serial.println("ESP32 BLE Server setup beginning...");
 
@@ -55,5 +56,5 @@ void setup() {
 }
 
 void loop() {
-
+    delay(10);
 }
