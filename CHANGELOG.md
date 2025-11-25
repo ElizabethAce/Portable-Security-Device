@@ -1,3 +1,7 @@
+## Version 0.1.9 - Modifying and Testing BLE 
+- Advertising after disconnecting
+- Light LED on connect/disconnect feature (mainly for testing purposes)
+
 ## Version 0.1.8 - Testing BLE was sucessful on app
 - Debugging recap:
     1. Switched from ESP-IDF to Arduino framework (just to test BLE)
