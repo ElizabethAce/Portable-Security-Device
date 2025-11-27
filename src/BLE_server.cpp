@@ -23,6 +23,7 @@
 
 /* DEFINES */
 #define DEVICE_NAME "Guardian Pax"
+#define SERVICE_UUID "5d180b5b-39a6-4478-840f-7006b6588531"     // Universaly Unique Identifier
 #define GREEN_LED 2
 #define RED_LED 5
 
@@ -61,6 +62,9 @@ void setup() {
     BLEServer *pServer = BLEDevice::createServer();
     pServer->setCallbacks(new MyServerCallbacks());
     
+    // Services
+    BLEService *pService = pServer->createService(SERVICE_UUID);
+    pService->start();
 
     // Start Advertising
     BLEDevice::startAdvertising();

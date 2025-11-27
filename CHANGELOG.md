@@ -1,4 +1,8 @@
-## Version 0.1.9 - Modifying and Testing BLE 
+## Version 0.1.10 - Modifying and Testing BLE (Service)
+- Created a service and generated UUID at https://www.uuidgenerator.net/
+- Service UUID shows up on the app
+
+## Version 0.1.9 - Modifying and Testing BLE (Server)
 - Advertising after disconnecting
 - Light LED on connect/disconnect feature (mainly for testing purposes)
 
