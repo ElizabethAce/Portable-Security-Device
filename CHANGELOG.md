@@ -1,3 +1,8 @@
+## Version 0.1.11 - Modifying and Testing BLE (Characteristic)
+- Creating a characteristic and generated UUID at https://www.uuidgenerator.net/
+- Saving progress
+- Issues with finding member in class, will be resolved later 
+
 ## Version 0.1.10 - Modifying and Testing BLE (Service)
 - Created a service and generated UUID at https://www.uuidgenerator.net/
 - Service UUID shows up on the app

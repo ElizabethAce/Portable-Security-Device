@@ -24,6 +24,7 @@
 /* DEFINES */
 #define DEVICE_NAME "Guardian Pax"
 #define SERVICE_UUID "5d180b5b-39a6-4478-840f-7006b6588531"     // Universaly Unique Identifier
+#define CHARSTIC_UUID "d0f407a8-86e5-434b-b2b7-68826b33a76e"
 #define GREEN_LED 2
 #define RED_LED 5
 
@@ -55,6 +56,10 @@ void setup() {
         pinMode(GREEN_LED, OUTPUT);
         pinMode(RED_LED, OUTPUT);
 
+    // Initialize LED state
+    digitalWrite(GREEN_LED, LOW);
+    digitalWrite(RED_LED, LOW);
+
     // Initialize Device
     BLEDevice::init(DEVICE_NAME); 
 
@@ -65,6 +70,14 @@ void setup() {
     // Services
     BLEService *pService = pServer->createService(SERVICE_UUID);
     pService->start();
+
+    // Characteristics
+    BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+        CHARSTIC_UUID,
+        BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE
+    );
+
+    pCharacteristic->setCallbacks(new MyCharacteristicCallbacks());
 
     // Start Advertising
     BLEDevice::startAdvertising();
