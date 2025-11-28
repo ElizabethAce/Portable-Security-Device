@@ -1,3 +1,11 @@
+## Version 0.1.12 - Modifying and Testing BLE (Characteristic)
+- Created a characteristic and generated UUID at https://www.uuidgenerator.net/
+- Saving progress
+- Issues with finding member in class, will be resolved later 
+    - Resolved: Needed to create a class for characteristic
+- BLE Library issue (perhaps incompatible w/ ESP32-S3)
+    - Look for alternative or rewriting code to board format
+
 ## Version 0.1.11 - Modifying and Testing BLE (Characteristic)
 - Creating a characteristic and generated UUID at https://www.uuidgenerator.net/
 - Saving progress

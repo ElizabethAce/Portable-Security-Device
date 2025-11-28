@@ -46,6 +46,12 @@ class MyServerCallbacks : public BLEServerCallbacks {
     }
 };
 
+class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
+    void onRead(BLECharacteristic *pCharacteristic) {
+        uint32_t currMs = millis() / 1000;
+        pCharacteristic->setValue(currMs);
+    }
+};
 
 void setup() {
     delay(1000); 
