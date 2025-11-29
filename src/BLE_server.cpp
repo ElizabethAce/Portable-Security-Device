@@ -75,7 +75,6 @@ void setup() {
     
     // Services
     BLEService *pService = pServer->createService(SERVICE_UUID);
-    pService->start();
 
     // Characteristics
     BLECharacteristic *pCharacteristic = pService->createCharacteristic(
@@ -84,6 +83,8 @@ void setup() {
     );
 
     pCharacteristic->setCallbacks(new MyCharacteristicCallbacks());
+
+    pService->start();
 
     // Start Advertising
     BLEDevice::startAdvertising();

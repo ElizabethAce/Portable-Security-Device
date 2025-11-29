@@ -1,3 +1,13 @@
+## Version 0.1.13 - Modifying and Testing BLE (Characteristic)
+- Created a characteristic and generated UUID at https://www.uuidgenerator.net/
+- Tested characteristic (Passed test)
+- BLE Library issue (perhaps incompatible w/ ESP32-S3)
+    - Look for alternative or rewriting code to board format
+        * Resolved: Didn't need alternate library. Must've accidentally downloaded an older library that wasn't compatible with my board. So, I deleted the library from /Users/MYUSERNAME/Documents/PlatformIO/Projects/Portable-Security-Device/.pio/libdeps/esp32-s3-devkitc-1/ by doing 
+        rm -rf "ESP32 BLE Arduino"
+        Re-built the code and re-uploaded to board. 
+        At first characteristic wasn't showing but realized I had "pService->start();" before creating the characteristic. So, I moved it after all the characteristic stuff and above starting advertising. It worked.
+
 ## Version 0.1.12 - Modifying and Testing BLE (Characteristic)
 - Created a characteristic and generated UUID at https://www.uuidgenerator.net/
 - Saving progress
