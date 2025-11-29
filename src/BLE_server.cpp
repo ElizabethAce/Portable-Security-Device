@@ -13,7 +13,11 @@
  *          like sensor readings.
  * 
  * 
- * Utilization: TBD
+ * Utilization: (Using an app for testing before creating my own client device)
+ *              1. Download LightBle app. 
+ *              2. Build and upload code to board.
+ *              3. Connect to "GuardianPax." 
+ *              4. Check for services, characteristics, descriptors
  *
  * 
  *****************************************************************************/
@@ -48,7 +52,7 @@ class MyServerCallbacks : public BLEServerCallbacks {
 
 class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
     void onRead(BLECharacteristic *pCharacteristic) {
-        uint32_t currMs = millis() / 1000;
+        uint32_t currMs = millis() / 1000;  // Displays number of seconds since connected (keeps cnting)
         pCharacteristic->setValue(currMs);
     }
 };
