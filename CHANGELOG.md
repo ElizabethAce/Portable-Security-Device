@@ -1,3 +1,8 @@
+## Version 0.1.16 - Adding Descriptor (Include Issue)
+- Issue with BLE2901 include
+    - Resolved: Replaced espressif32 platform in .ini with https://github.com/pioarduino/platform-espressif32.git supporting Arduino-ESP32 3.x (Most recent version: 3.20017.241212+sha.dcc1105b  234.91MB  2024-12-12 14:33:50)
+    * Checked by doing: pio pkg show framework-arduinoespressif32
+
 ## Version 0.1.15 - Adding Descriptor
 - Saving Progress
 - Issue with BLE2901 include

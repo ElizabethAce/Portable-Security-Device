@@ -93,7 +93,7 @@ void setup() {
     // Descriptor
     BLE2901 *pDescr_2901 = new BLE2901();
     pDescr_2901->setDescription("Time Since Device Connected:");
-    pCharacteristic->addDescriptor(pDescriptor_2901);
+    pCharacteristic->addDescriptor(pDescr_2901);
 
 
     pService->start();
