@@ -1,3 +1,10 @@
+## Version 0.1.17 - Testing Descriptor (Platformio Issue)
+- Updated extensions
+- IRAM reaching capacity (might need to look into NimBLE)
+- Testing Descriptors:
+    * Issues with connecting to device
+        - Connects for ~3 seconds and disconnects automatically (only Green LED lights during that time but no Red LED on Disconnect)
+
 ## Version 0.1.16 - Adding Descriptor (Include Issue)
 - Issue with BLE2901 include
     - Resolved: Replaced espressif32 platform in .ini with https://github.com/pioarduino/platform-espressif32.git supporting Arduino-ESP32 3.x (Most recent version: 3.20017.241212+sha.dcc1105b  234.91MB  2024-12-12 14:33:50)

@@ -19,6 +19,7 @@
  * 
  *****************************************************************************/
 /** Includes **/
+/*
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -49,12 +50,15 @@ static esp_ble_adv_params_t adv_params = {
     .channel_map = ADV_CHNL_ALL,                            // Advertise on all 3 BLE channels
     .adv_filter_policy = ADV_FILTER_ALLOW_SCAN_ANY_CON_ANY, // Allow anyone to scan or connect
 };
+*/
+
 
 /* FUNCTION PROTOTYPES */
+/*
 void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param);
 void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
 void config_LED(void);
-
+*/
 // void app_main() {
 //     config_LED();
 //     /* Configure Bluetooth */
@@ -100,7 +104,7 @@ void config_LED(void);
 
 
 /* Handles GATT server events (e.g. client connection, client requests to r/w data, service created) */
-void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param) {
+/*void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param) {
     switch (event) {
         case ESP_GATTS_REG_EVT:
             // Create service
@@ -124,9 +128,9 @@ void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp
             break;
     }
 }
-
+*/
 /* Handles advertising and connection events (e.g. Displaying updates, scanning for nearby devices, connection updates, authentication requests, and advertising.) */
-void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param) {
+/*void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param) {
     if (event == ESP_GAP_BLE_ADV_START_COMPLETE_EVT) {
         ESP_LOGI("BLE", "Advertising started");
         printf("DEBUG: ADVERTISINGGGGGGGGG...");
@@ -142,3 +146,4 @@ void config_LED(void) {
     gpio_set_level(GREEN_LED , LOW);      // Initialize LED off
     vTaskDelay(pdMS_TO_TICKS(500));
 }
+*/
