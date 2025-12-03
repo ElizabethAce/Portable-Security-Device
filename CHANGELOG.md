@@ -1,4 +1,10 @@
+## Version 0.1.18 - Switching to NimBLE-Arduino (Started)
+- IRAM reaching capacity (might need to look into NimBLE)
+    - Current version took too much space, NimBLE uses less 
+    - Switching to NimBLE now
+
 ## Version 0.1.17 - Testing Descriptor (Platformio Issue)
+- Commented all BLE_Server.c file
 - Updated extensions
 - IRAM reaching capacity (might need to look into NimBLE)
 - Testing Descriptors:

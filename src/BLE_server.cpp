@@ -24,19 +24,20 @@
 /* INCLUDES */
 #include <Arduino.h>
 #include <BLEDevice.h>
-#include <BLE2901.h>  // Client Characteristic Configuration Descriptor (CCCD)
+#include <NimBLEDevice.h>
+//#include <BLE2901.h>  // Client Characteristic Configuration Descriptor (CCCD)
 
 /* DEFINES */
 #define DEVICE_NAME "Guardian Pax"
 #define SERVICE_UUID "5d180b5b-39a6-4478-840f-7006b6588531"     // Universaly Unique Identifier
 #define CHARSTIC_UUID "d0f407a8-86e5-434b-b2b7-68826b33a76e"
-#define DESCR_UUID "4eb6a0c1-244f-4b5b-b9e6-db809522e3c1"
+//#define DESCR_UUID "4eb6a0c1-244f-4b5b-b9e6-db809522e3c1"
 #define GREEN_LED 2
 #define RED_LED 5
 
 
 /*** Callbacks ***/
-class MyServerCallbacks : public BLEServerCallbacks {
+class MyServerCallbacks : public NimBLEServerCallbacks {
 
     void onConnect(BLEServer *pServer) {    // funcs are provided
         Serial.println("Client Connected!");
@@ -63,6 +64,7 @@ void setup() {
     delay(1000); 
     Serial.begin(115200);
     Serial.println("ESP32 BLE Server setup beginning...");
+    esp_log_level_set("*", ESP_LOG_VERBOSE);
 
     // LED Configuration
         pinMode(GREEN_LED, OUTPUT);
