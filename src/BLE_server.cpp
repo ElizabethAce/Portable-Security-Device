@@ -23,14 +23,14 @@
  *****************************************************************************/
 /* INCLUDES */
 #include <Arduino.h>
-#include <BLEDevice.h>
+//#include <BLEDevice.h>
 #include <NimBLEDevice.h>
 //#include <BLE2901.h>  // Client Characteristic Configuration Descriptor (CCCD)
 
 /* DEFINES */
 #define DEVICE_NAME "Guardian Pax"
-#define SERVICE_UUID "5d180b5b-39a6-4478-840f-7006b6588531"     // Universaly Unique Identifier
-#define CHARSTIC_UUID "d0f407a8-86e5-434b-b2b7-68826b33a76e"
+//#define SERVICE_UUID "5d180b5b-39a6-4478-840f-7006b6588531"     // Universaly Unique Identifier
+//#define CHARSTIC_UUID "d0f407a8-86e5-434b-b2b7-68826b33a76e"
 //#define DESCR_UUID "4eb6a0c1-244f-4b5b-b9e6-db809522e3c1"
 #define GREEN_LED 2
 #define RED_LED 5
@@ -39,66 +39,65 @@
 /*** Callbacks ***/
 class MyServerCallbacks : public NimBLEServerCallbacks {
 
-    void onConnect(BLEServer *pServer) {    // funcs are provided
+    void onConnect(NimBLEServer *pServer) {    // funcs are provided
         Serial.println("Client Connected!");
         digitalWrite(RED_LED, LOW);
         digitalWrite(GREEN_LED, HIGH);
     }
 
-    void onDisconnect(BLEServer *pServer) {
+    void onDisconnect(NimBLEServer *pServer) {
         digitalWrite(GREEN_LED, LOW);
         digitalWrite(RED_LED, HIGH);
         Serial.println("Client Disconnected!");
-        BLEDevice::startAdvertising();
+        NimBLEDevice::startAdvertising();
     }
 };
 
-class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
-    void onRead(BLECharacteristic *pCharacteristic) {
-        uint32_t currMs = millis() / 1000;  // Displays number of seconds since connected (keeps cnting)
-        pCharacteristic->setValue(currMs);
-    }
-};
+// class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
+//     void onRead(BLECharacteristic *pCharacteristic) {
+//         uint32_t currMs = millis() / 1000;  // Displays number of seconds since connected (keeps cnting)
+//         pCharacteristic->setValue(currMs);
+//     }
+// };
 
 void setup() {
     delay(1000); 
     Serial.begin(115200);
     Serial.println("ESP32 BLE Server setup beginning...");
-    esp_log_level_set("*", ESP_LOG_VERBOSE);
 
     // LED Configuration
-        pinMode(GREEN_LED, OUTPUT);
-        pinMode(RED_LED, OUTPUT);
+    pinMode(GREEN_LED, OUTPUT);
+    pinMode(RED_LED, OUTPUT);
 
     // Initialize LED state
     digitalWrite(GREEN_LED, LOW);
     digitalWrite(RED_LED, LOW);
 
     // Initialize Device
-    BLEDevice::init(DEVICE_NAME); 
+    NimBLEDevice::init(DEVICE_NAME); 
 
     // Create Server
-    BLEServer *pServer = BLEDevice::createServer();
+    NimBLEServer *pServer = NimBLEDevice::createServer();
     pServer->setCallbacks(new MyServerCallbacks());
     
     // Services
-    BLEService *pService = pServer->createService(SERVICE_UUID);
+    //BLEService *pService = pServer->createService(SERVICE_UUID);
 
     // Characteristics
-    BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-        CHARSTIC_UUID,
-        BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE
-    );
+    // BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+    //     CHARSTIC_UUID,
+    //     BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE
+    // );
 
-    pCharacteristic->setCallbacks(new MyCharacteristicCallbacks());
+    // pCharacteristic->setCallbacks(new MyCharacteristicCallbacks());
 
-    // Descriptor
-    BLE2901 *pDescr_2901 = new BLE2901();
-    pDescr_2901->setDescription("Time Since Device Connected:");
-    pCharacteristic->addDescriptor(pDescr_2901);
+    // // Descriptor
+    // BLE2901 *pDescr_2901 = new BLE2901();
+    // pDescr_2901->setDescription("Time Since Device Connected:");
+    // pCharacteristic->addDescriptor(pDescr_2901);
 
 
-    pService->start();
+    //pService->start();
 
     // Start Advertising
     BLEDevice::startAdvertising();

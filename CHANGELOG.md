@@ -1,3 +1,8 @@
+## Version 0.1.19 - Switching to NimBLE-Arduino (In Progress) - Debugging
+- IRAM reaching capacity 
+    - Switching to NimBLE now
+    - Debugging issues to test separate parts again
+
 ## Version 0.1.18 - Switching to NimBLE-Arduino (Started)
 - IRAM reaching capacity (might need to look into NimBLE)
     - Current version took too much space, NimBLE uses less 
