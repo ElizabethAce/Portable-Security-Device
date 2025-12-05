@@ -23,9 +23,7 @@
  *****************************************************************************/
 /* INCLUDES */
 #include <Arduino.h>
-//#include <BLEDevice.h>
 #include <NimBLEDevice.h>
-//#include <BLE2901.h>  // Client Characteristic Configuration Descriptor (CCCD)
 
 /* DEFINES */
 #define DEVICE_NAME "Guardian Pax"

@@ -1,3 +1,7 @@
+## Version 0.1.20 - Switching to NimBLE-Arduino (In Progress) - Ready to Test
+- Changed device creation code to match NimBLE
+- Starting to test part by part again
+
 ## Version 0.1.19 - Switching to NimBLE-Arduino (In Progress) - Debugging
 - IRAM reaching capacity 
     - Switching to NimBLE now
