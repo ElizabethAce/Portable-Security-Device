@@ -1,3 +1,24 @@
+## Version 0.1.21 - Switching to NimBLE-Arduino (In Progress) - Characteristics complete
+- Changed Characteristics and tested
+- Readded library with line in .ini
+    - No library issues anymore
+- LEDs don't turn on
+    - Changed pin numbers to test
+    - GPIO issue conflict change test--failed 
+    - going to create a separate file to test LEDs alone
+- Prints show on serial console now
+    - Added a delay after baud rate setup
+
+
+## Version 0.1.20 - Switching to NimBLE-Arduino (In Progress) - Ready to Test
+- Changed Service and tested
+- Removed external library:
+/Users/USERNAME/Documents/PlatformIO/Projects/Portable-Security-Device/.pio/libdeps/esp32-s3-devkitc-1
+% ls
+integrity.dat   NimBLE-Arduino
+% rm -rf "NimBLE-Arduino"
+
+
 ## Version 0.1.20 - Switching to NimBLE-Arduino (In Progress) - Ready to Test
 - Changed device creation code to match NimBLE
 - Starting to test part by part again

@@ -27,11 +27,11 @@
 
 /* DEFINES */
 #define DEVICE_NAME "Guardian Pax"
-//#define SERVICE_UUID "5d180b5b-39a6-4478-840f-7006b6588531"     // Universaly Unique Identifier
-//#define CHARSTIC_UUID "d0f407a8-86e5-434b-b2b7-68826b33a76e"
+#define SERVICE_UUID "5d180b5b-39a6-4478-840f-7006b6588531"     // Universaly Unique Identifier
+#define CHARSTIC_UUID "d0f407a8-86e5-434b-b2b7-68826b33a76e"
 //#define DESCR_UUID "4eb6a0c1-244f-4b5b-b9e6-db809522e3c1"
-#define GREEN_LED 2
-#define RED_LED 5
+#define GREEN_LED 21
+#define RED_LED 15
 
 
 /*** Callbacks ***/
@@ -51,16 +51,19 @@ class MyServerCallbacks : public NimBLEServerCallbacks {
     }
 };
 
-// class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
-//     void onRead(BLECharacteristic *pCharacteristic) {
-//         uint32_t currMs = millis() / 1000;  // Displays number of seconds since connected (keeps cnting)
-//         pCharacteristic->setValue(currMs);
-//     }
-// };
+class MyCharacteristicCallbacks : public NimBLECharacteristicCallbacks {
+    void onRead(NimBLECharacteristic *pCharacteristic) {
+        uint32_t currMs = millis() / 1000;  // Displays number of seconds since connected (keeps cnting)
+        pCharacteristic->setValue(currMs);
+    }
+};
 
 void setup() {
-    delay(1000); 
     Serial.begin(115200);
+    delay(1000); 
+    // while (!Serial) {
+    //     delay(10);
+    // }
     Serial.println("ESP32 BLE Server setup beginning...");
 
     // LED Configuration
@@ -79,15 +82,15 @@ void setup() {
     pServer->setCallbacks(new MyServerCallbacks());
     
     // Services
-    //BLEService *pService = pServer->createService(SERVICE_UUID);
+    NimBLEService *pService = pServer->createService(SERVICE_UUID);
 
     // Characteristics
-    // BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-    //     CHARSTIC_UUID,
-    //     BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE
-    // );
+    NimBLECharacteristic *pCharacteristic = pService->createCharacteristic(
+        CHARSTIC_UUID,
+        NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE
+    );
 
-    // pCharacteristic->setCallbacks(new MyCharacteristicCallbacks());
+    pCharacteristic->setCallbacks(new MyCharacteristicCallbacks());
 
     // // Descriptor
     // BLE2901 *pDescr_2901 = new BLE2901();
@@ -95,10 +98,10 @@ void setup() {
     // pCharacteristic->addDescriptor(pDescr_2901);
 
 
-    //pService->start();
+    pService->start();
 
     // Start Advertising
-    BLEDevice::startAdvertising();
+    NimBLEDevice::startAdvertising();
 }
 
 void loop() {
